@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarvestHub - Smart Agricultural &amp; Farm Management System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="fa-solid fa-seedling"></i>
+          <span>Harvest<strong>Hub</strong></span>
+        </div>
+        <button class="icon-btn mobile-close" id="sidebarCloseBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="farm-selector">
+        <label for="currentFarmSelect">ACTIVE FARM</label>
+        <div class="select-wrapper">
+          <i class="fa-solid fa-location-dot"></i>
+          <select id="currentFarmSelect">
+            <option value="f1">Green Valley Acres (120 Acres)</option>
+            <option value="f2">Sunrise Orchard (45 Acres)</option>
+            <option value="f3">Highland Hydroponics (12 Acres)</option>
+          </select>
+        </div>
+      </div>
+      <nav class="sidebar-menu">
+        <button class="nav-item active" data-target="dashboard-section">
+          <i class="fa-solid fa-chart-pie"></i><span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-target="farm-profile-section">
+          <i class="fa-solid fa-map"></i><span>Farm Profile &amp; Fields</span>
+        </button>
+        <button class="nav-item" data-target="users-section">
+          <i class="fa-solid fa-users"></i><span>Users &amp; Roles</span>
+        </button>
+        <button class="nav-item" data-target="crop-catalog-section">
+          <i class="fa-solid fa-wheat-awn"></i><span>Crop Catalog</span>
+        </button>
+        <button class="nav-item" data-target="crop-rotation-section">
+          <i class="fa-solid fa-rotate"></i><span>Crop Rotation Planner</span>
+        </button>
+        <button class="nav-item" data-target="field-ops-section">
+          <i class="fa-solid fa-clipboard-list"></i><span>Field Operations</span>
+        </button>
+        <button class="nav-item" data-target="workforce-section">
+          <i class="fa-solid fa-user-clock"></i><span>Workforce &amp; Labor</span>
+        </button>
+        <button class="nav-item" data-target="resources-costs-section">
+          <i class="fa-solid fa-boxes-stacked"></i><span>Resources &amp; Costs</span>
+        </button>
+        <button class="nav-item" data-target="harvest-section">
+          <i class="fa-solid fa-basket-shopping"></i><span>Harvest &amp; Yield</span>
+        </button>
+        <button class="nav-item" data-target="machinery-section">
+          <i class="fa-solid fa-tractor"></i><span>Machinery &amp; Fleet</span>
+        </button>
+        <button class="nav-item" data-target="maintenance-section">
+          <i class="fa-solid fa-wrench"></i><span>Maintenance Log</span>
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="system-status">
+          <span class="status-indicator-dot online"></span>
+          <span>IoT Sensors: Online</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Application Wrapper -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="top-bar-left">
+          <button class="icon-btn mobile-toggle" id="sidebarToggleBtn">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="breadcrumb">
+            <span id="breadcrumbCategory">Overview</span> / <span id="breadcrumbPage" class="current">Dashboard</span>
+          </div>
+        </div>
+        <div class="top-bar-right">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="globalSearchInput" placeholder="Search fields, crops, tasks...">
+          </div>
+          <button class="icon-btn notification-btn" id="notificationBtn" title="Notifications">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge-dot"></span>
+          </button>
+          <div class="user-profile-menu" id="userProfileMenu">
+            <div class="avatar">AG</div>
+            <div class="user-info">
+              <span class="name">Ashwin Goel</span>
+              <span class="role">Farm Administrator</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content Sections -->
+      <div class="content-body">
+        
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" class="app-section active">
+          <div class="section-header">
+            <div>
+              <h2>Farm Command Center</h2>
+              <p>Real-time agricultural telemetry, resource tracking, and field health metrics.</p>
+            </div>
+            <div class="action-group">
+              <button class="btn btn-secondary" id="exportReportBtn"><i class="fa-solid fa-download"></i> Export Report</button>
+              <button class="btn btn-primary" id="quickLogJobBtn"><i class="fa-solid fa-plus"></i> Log Field Operation</button>
+            </div>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-icon bg-green"><i class="fa-solid fa-seedling"></i></div>
+              <div class="metric-info">
+                <span class="label">Total Cultivated Area</span>
+                <h3 class="value">177 Acres</h3>
+                <span class="trend positive"><i class="fa-solid fa-arrow-trend-up"></i> 100% active utilization</span>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon bg-blue"><i class="fa-solid fa-droplet"></i></div>
+              <div class="metric-info">
+                <span class="label">Soil Moisture Index</span>
+                <h3 class="value">64.5%</h3>
+                <span class="trend positive"><i class="fa-solid fa-arrow-trend-up"></i> Optimal range</span>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon bg-amber"><i class="fa-solid fa-temperature-half"></i></div>
+              <div class="metric-info">
+                <span class="label">Avg Soil Temp</span>
+                <h3 class="value">22.4 °C</h3>
+                <span class="trend neutral"><i class="fa-solid fa-equals"></i> Normal variation</span>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon bg-purple"><i class="fa-solid fa-clipboard-check"></i></div>
+              <div class="metric-info">
+                <span class="label">Active Work Orders</span>
+                <h3 class="value">12 Tasks</h3>
+                <span class="trend positive"><i class="fa-solid fa-check"></i> 8 completed today</span>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-grid">
+            <div class="card chart-card">
+              <div class="card-header">
+                <h3>Crop Yield &amp; Growth Progress</h3>
+                <select class="form-control-sm" id="chartTimeframeSelect">
+                  <option>This Season</option>
+                  <option>Previous Season</option>
+                  <option>Year-to-Date</option>
+                </select>
+              </div>
+              <div class="chart-container">
+                <canvas id="plantThroughputChart"></canvas>
+              </div>
+            </div>
+            <div class="card activity-card">
+              <div class="card-header">
+                <h3>Sensor &amp; Field Alerts</h3>
+                <span class="live-badge">Live IoT</span>
+              </div>
+              <div class="activity-feed">
+                <div class="feed-item">
+                  <span class="time">14:58</span>
+                  <p><strong>Field A-2</strong> automated irrigation cycle finished successfully (1,200L).</p>
+                </div>
+                <div class="feed-item">
+                  <span class="time">14:15</span>
+                  <p><strong>Tractor #3</strong> completed fertilizer application in North Orchard.</p>
+                </div>
+                <div class="feed-item warning">
+                  <span class="time">13:40</span>
+                  <p><strong>Field B-1</strong> moisture sensor reading dropped below threshold (32%).</p>
+                </div>
+                <div class="feed-item">
+                  <span class="time">11:20</span>
+                  <p>Daily weather sync completed: Rain forecasted for Friday.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Farm Profile & Fields Section -->
+        <section id="farm-profile-section" class="app-section">
+          <div class="section-header">
+            <div>
+              <h2>Farm Profile &amp; Field Boundaries</h2>
+              <p>Manage acreage, soil categories, zoning, and spatial telemetry across sectors.</p>
+            </div>
+            <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add New Field</button>
+          </div>
+          <div class="catalog-grid">
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-green">Active Zone</div>
+              <h3>Field A-1: North Valley</h3>
+              <p class="crop-scientific">Loam Soil • Irrigated Pivot #1</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Area:</span> <strong>45.0 Acres</strong></div>
+                <div class="detail-row"><span>Current Crop:</span> <strong>Hard Red Winter Wheat</strong></div>
+                <div class="detail-row"><span>Sensor Status:</span> <strong style="color:var(--status-success)">Online (98%)</strong></div>
+              </div>
+            </div>
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-blue">Active Zone</div>
+              <h3>Field A-2: Riverbed Plain</h3>
+              <p class="crop-scientific">Clay Loam • Drip Irrigation</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Area:</span> <strong>32.5 Acres</strong></div>
+                <div class="detail-row"><span>Current Crop:</span> <strong>Yellow Dent Corn</strong></div>
+                <div class="detail-row"><span>Sensor Status:</span> <strong style="color:var(--status-success)">Online (100%)</strong></div>
+              </div>
+            </div>
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-amber">Active Zone</div>
+              <h3>Field B-1: East Ridge</h3>
+              <p class="crop-scientific">Sandy Loam • Rainfed</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Area:</span> <strong>42.5 Acres</strong></div>
+                <div class="detail-row"><span>Current Crop:</span> <strong>Soybean</strong></div>
+                <div class="detail-row"><span>Sensor Status:</span> <strong style="color:var(--status-warning)">Attention Needed</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Users & Roles Section -->
+        <section id="users-section" class="app-section">
+          <div class="section-header">
+            <div>
+              <h2>Users &amp; Role Permissions</h2>
+              <p>Control farm supervisors, agronomists, machinery operators, and system access rights.</p>
+            </div>
+            <button class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Invite User</button>
+          </div>
+          <div class="card">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>User Name</th>
+                    <th>Email Address</th>
+                    <th>Assigned Role</th>
+                    <th>Assigned Farm / Sector</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Ashwin Goel</strong></td>
+                    <td>ashwin.goel@harvesthub.ag</td>
+                    <td><span class="badge bg-purple">Administrator</span></td>
+                    <td>All Facilities</td>
+                    <td><span class="status-indicator-dot online" style="display:inline-block; margin-right:6px;"></span> Active</td>
+                    <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:0.75rem;">Edit</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dr. Robert Vance</strong></td>
+                    <td>r.vance@agronomist.org</td>
+                    <td><span class="badge bg-blue">Lead Agronomist</span></td>
+                    <td>Green Valley Acres</td>
+                    <td><span class="status-indicator-dot online" style="display:inline-block; margin-right:6px;"></span> Active</td>
+                    <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:0.75rem;">Edit</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Marcus Holloway</strong></td>
+                    <td>marcus.h@harvesthub.ag</td>
+                    <td><span class="badge bg-amber">Fleet Supervisor</span></td>
+                    <td>Machinery &amp; Maintenance</td>
+                    <td><span class="status-indicator-dot online" style="display:inline-block; margin-right:6px;"></span> Active</td>
+                    <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:0.75rem;">Edit</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Elena Rostova</strong></td>
+                    <td>elena.r@harvesthub.ag</td>
+                    <td><span class="badge bg-green">Field Crew Lead</span></td>
+                    <td>Sunrise Orchard</td>
+                    <td><span class="status-indicator-dot online" style="display:inline-block; margin-right:6px;"></span> Active</td>
+                    <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:0.75rem;">Edit</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Crop Catalog Section -->
+        <section id="crop-catalog-section" class="app-section">
+          <div class="section-header">
+            <div>
+              <h2>Comprehensive Crop Catalog</h2>
+              <p>Explore crop varieties, optimal growth durations, climate preferences, and yield metrics.</p>
+            </div>
+            <div class="action-group">
+              <button class="btn btn-primary" id="addCropBtn"><i class="fa-solid fa-plus"></i> Add New Crop</button>
+            </div>
+          </div>
+          <div class="catalog-grid" id="cropCatalogGrid">
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-green">Cereal / Grain</div>
+              <h3>Hard Red Winter Wheat</h3>
+              <p class="crop-scientific">Triticum aestivum</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Growth Cycle:</span> <strong>210 Days</strong></div>
+                <div class="detail-row"><span>Optimal Temp:</span> <strong>15°C - 24°C</strong></div>
+                <div class="detail-row"><span>Soil Preference:</span> <strong>Loam / Clay Loam</strong></div>
+                <div class="detail-row"><span>Avg Yield:</span> <strong>3.4 Tons / Acre</strong></div>
+              </div>
+            </div>
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-blue">Legume / Nitrogen Fixer</div>
+              <h3>Soybean (Glycine max)</h3>
+              <p class="crop-scientific">Glycine max</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Growth Cycle:</span> <strong>120 Days</strong></div>
+                <div class="detail-row"><span>Optimal Temp:</span> <strong>20°C - 30°C</strong></div>
+                <div class="detail-row"><span>Soil Preference:</span> <strong>Well-Drained Loam</strong></div>
+                <div class="detail-row"><span>Avg Yield:</span> <strong>2.8 Tons / Acre</strong></div>
+              </div>
+            </div>
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-amber">Cereal / Coarse Grain</div>
+              <h3>Yellow Dent Corn</h3>
+              <p class="crop-scientific">Zea mays indentata</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Growth Cycle:</span> <strong>110 Days</strong></div>
+                <div class="detail-row"><span>Optimal Temp:</span> <strong>18°C - 32°C</strong></div>
+                <div class="detail-row"><span>Soil Preference:</span> <strong>Rich Silt Loam</strong></div>
+                <div class="detail-row"><span>Avg Yield:</span> <strong>4.5 Tons / Acre</strong></div>
+              </div>
+            </div>
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-purple">Root Vegetable</div>
+              <h3>Sugar Beet</h3>
+              <p class="crop-scientific">Beta vulgaris</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Growth Cycle:</span> <strong>150 Days</strong></div>
+                <div class="detail-row"><span>Optimal Temp:</span> <strong>15°C - 22°C</strong></div>
+                <div class="detail-row"><span>Soil Preference:</span> <strong>Deep Sandy Loam</strong></div>
+                <div class="detail-row"><span>Avg Yield:</span> <strong>22.0 Tons / Acre</strong></div>
+              </div>
+            </div>
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-green">Leafy Green / Vegetable</div>
+              <h3>Romaine Lettuce</h3>
+              <p class="crop-scientific">Lactuca sativa var. longifolia</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Growth Cycle:</span> <strong>65 Days</strong></div>
+                <div class="detail-row"><span>Optimal Temp:</span> <strong>10°C - 20°C</strong></div>
+                <div class="detail-row"><span>Soil Preference:</span> <strong>High Organic Compost</strong></div>
+                <div class="detail-row"><span>Avg Yield:</span> <strong>12.5 Tons / Acre</strong></div>
+              </div>
+            </div>
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-amber">Fruit / Solanaceae</div>
+              <h3>Roma Tomato</h3>
+              <p class="crop-scientific">Solanum lycopersicum</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Growth Cycle:</span> <strong>85 Days</strong></div>
+                <div class="detail-row"><span>Optimal Temp:</span> <strong>21°C - 29°C</strong></div>
+                <div class="detail-row"><span>Soil Preference:</span> <strong>Silty Clay Loam</strong></div>
+                <div class="detail-row"><span>Avg Yield:</span> <strong>18.0 Tons / Acre</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Crop Rotation Planner Section -->
+        <section id="crop-rotation-section" class="app-section">
+          <div class="section-header">
+            <div>
+              <h2>Crop Rotation Planner &amp; Soil Health</h2>
+              <p>Plan multi-season field transitions to naturally restore soil nitrogen and prevent pest buildup.</p>
+            </div>
+            <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Rotation Plan</button>
+          </div>
+          <div class="catalog-grid">
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-green">Rotation Schedule A</div>
+              <h3>Field A-1 (North Valley)</h3>
+              <p class="crop-scientific">3-Year Nitrogen Restoration Cycle</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Year 1 (Current):</span> <strong>Winter Wheat</strong></div>
+                <div class="detail-row"><span>Year 2 (Planned):</span> <strong>Soybean (Fixer)</strong></div>
+                <div class="detail-row"><span>Year 3 (Planned):</span> <strong>Yellow Dent Corn</strong></div>
+                <div class="detail-row"><span>Soil Health Impact:</span> <strong style="color:var(--status-success)">+14% Nitrogen Recovery</strong></div>
+              </div>
+            </div>
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-amber">Rotation Schedule B</div>
+              <h3>Field A-2 (Riverbed Plain)</h3>
+              <p class="crop-scientific">2-Year Intensive Feed Cycle</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Year 1 (Current):</span> <strong>Yellow Dent Corn</strong></div>
+                <div class="detail-row"><span>Year 2 (Planned):</span> <strong>Sugar Beet</strong></div>
+                <div class="detail-row"><span>Soil Health Impact:</span> <strong style="color:var(--status-warning)">Moderate Nutrient Draw</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Field Operations Section -->
+        <section id="field-ops-section" class="app-section">
+          <div class="section-header">
+            <div>
+              <h2>Field Operations Log</h2>
+              <p>Track tilling, seeding, chemical application, irrigation scheduling, and harvesting tasks.</p>
+            </div>
+            <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Log New Operation</button>
+          </div>
+          <div class="card">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Operation ID</th>
+                    <th>Field Name</th>
+                    <th>Task Type</th>
+                    <th>Assigned Operator</th>
+                    <th>Date &amp; Time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>OP-8021</strong></td>
+                    <td>Field A-1</td>
+                    <td>Variable Rate Fertilizer Spreading</td>
+                    <td>Marcus Holloway</td>
+                    <td>Oct 1, 2026 - 10:30 AM</td>
+                    <td><span class="badge bg-green">Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>OP-8022</strong></td>
+                    <td>Field A-2</td>
+                    <td>Automated Pivot Irrigation (1,200L)</td>
+                    <td>IoT Automated System</td>
+                    <td>Oct 1, 2026 - 02:45 PM</td>
+                    <td><span class="badge bg-green">Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>OP-8023</strong></td>
+                    <td>Field B-1</td>
+                    <td>Soil Moisture Sampling &amp; Probe Check</td>
+                    <td>Dr. Robert Vance</td>
+                    <td>Oct 2, 2026 - 09:00 AM</td>
+                    <td><span class="badge bg-amber">Scheduled</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Workforce Section -->
+        <section id="workforce-section" class="app-section">
+          <div class="section-header">
+            <div>
+              <h2>Workforce &amp; Labor Management</h2>
+              <p>Shift rosters, daily task allocations, payroll tracking, and certifications.</p>
+            </div>
+            <button class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Add Worker</button>
+          </div>
+          <div class="catalog-grid">
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-green">Full-Time Operator</div>
+              <h3>Marcus Holloway</h3>
+              <p class="crop-scientific">Heavy Machinery &amp; Tillage Specialist</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Shift Hours:</span> <strong>07:00 - 15:30</strong></div>
+                <div class="detail-row"><span>Hourly Rate:</span> <strong>$28.50 / hr</strong></div>
+                <div class="detail-row"><span>Certifications:</span> <strong>Class A Tractor, Drone Pilot</strong></div>
+              </div>
+            </div>
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-blue">Crew Supervisor</div>
+              <h3>Elena Rostova</h3>
+              <p class="crop-scientific">Orchard &amp; Harvest Lead</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Shift Hours:</span> <strong>06:00 - 14:30</strong></div>
+                <div class="detail-row"><span>Hourly Rate:</span> <strong>$32.00 / hr</strong></div>
+                <div class="detail-row"><span>Certifications:</span> <strong>Agronomy Safety, Organic QA</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Resources & Costs Section -->
+        <section id="resources-costs-section" class="app-section">
+          <div class="section-header">
+            <div>
+              <h2>Resources, Inventory &amp; Costs</h2>
+              <p>Manage bulk fertilizer stock, seeds, pesticides, fuel reserves, and capital expenditures.</p>
+            </div>
+            <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Inventory Item</button>
+          </div>
+          <div class="card">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Item Description</th>
+                    <th>Category</th>
+                    <th>Stock Quantity</th>
+                    <th>Unit Cost</th>
+                    <th>Storage Location</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Urea 46-0-0 Fertilizer</strong></td>
+                    <td>Chemicals &amp; Nutrients</td>
+                    <td>14.5 Tons</td>
+                    <td>$420 / Ton</td>
+                    <td>Shed #3 Bulk Silo</td>
+                    <td><span class="badge bg-green">In Stock</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Hard Red Winter Wheat Seeds</strong></td>
+                    <td>Seeds</td>
+                    <td>1,200 Kg</td>
+                    <td>$2.40 / Kg</td>
+                    <td>Climate Storage Facility</td>
+                    <td><span class="badge bg-green">In Stock</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Diesel Fuel (Red Dyed)</strong></td>
+                    <td>Energy &amp; Fuel</td>
+                    <td>4,500 Liters</td>
+                    <td>$1.15 / Liter</td>
+                    <td>Main Tank #1</td>
+                    <td><span class="badge bg-amber">Reorder Soon</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Harvest Section -->
+        <section id="harvest-section" class="app-section">
+          <div class="section-header">
+            <div>
+              <h2>Harvest Records &amp; Yield Analytics</h2>
+              <p>Log total crop outputs, quality grading, moisture testing, and storage silos.</p>
+            </div>
+            <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Record New Harvest Batch</button>
+          </div>
+          <div class="catalog-grid">
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-green">Season 2025/2026 Output</div>
+              <h3>Hard Red Winter Wheat</h3>
+              <p class="crop-scientific">Harvested from Field A-1</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Total Volume:</span> <strong>153.0 Tons</strong></div>
+                <div class="detail-row"><span>Moisture Content:</span> <strong>11.4% (Dry)</strong></div>
+                <div class="detail-row"><span>Quality Grade:</span> <strong>Grade #1 Premium</strong></div>
+                <div class="detail-row"><span>Storage Destination:</span> <strong>Silo Tower Alpha</strong></div>
+              </div>
+            </div>
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-amber">Season 2025/2026 Output</div>
+              <h3>Yellow Dent Corn</h3>
+              <p class="crop-scientific">Harvested from Field A-2</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Total Volume:</span> <strong>146.2 Tons</strong></div>
+                <div class="detail-row"><span>Moisture Content:</span> <strong>14.2%</strong></div>
+                <div class="detail-row"><span>Quality Grade:</span> <strong>Grade #2 Standard</strong></div>
+                <div class="detail-row"><span>Storage Destination:</span> <strong>Grain Elevator Beta</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Machinery Section -->
+        <section id="machinery-section" class="app-section">
+          <div class="section-header">
+            <div>
+              <h2>Machinery &amp; Fleet Management</h2>
+              <p>Monitor tractors, combine harvesters, autonomous drones, and transport utility vehicles.</p>
+            </div>
+            <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Equipment</button>
+          </div>
+          <div class="catalog-grid">
+            <div class="card crop-item-card">
+              <div class="crop-header-badge bg-active">Active Fleet</div>
+              <h3>John Deere 8R 410 Tractor</h3>
+              <p class="crop-scientific">GPS Auto-Steer Enabled • 410 HP</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Operational Hours:</span> <strong>1,840 Hrs</strong></div>
+                <div class="detail-row"><span>Fuel Level:</span> <strong>78%</strong></div>
+                <div class="detail-row"><span>Current Status:</span> <strong style="color:var(--status-success)">In Operation (Field A-1)</strong></div>
+              </div>
+            </div>
+            <div class="crop-item-card card">
+              <div class="crop-header-badge bg-blue">Active Fleet</div>
+              <h3>Case IH Axial-Flow 9250</h3>
+              <p class="crop-scientific">Combine Harvester • 550 HP</p>
+              <div class="crop-details">
+                <div class="detail-row"><span>Operational Hours:</span> <strong>920 Hrs</strong></div>
+                <div class="detail-row"><span>Fuel Level:</span> <strong>42%</strong></div>
+                <div class="detail-row"><span>Current Status:</span> <strong style="color:var(--status-info)">Standby / Ready</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Maintenance Section -->
+        <section id="maintenance-section" class="app-section">
+          <div class="section-header">
+            <div>
+              <h2>Maintenance &amp; Service Logs</h2>
+              <p>Track repairs, scheduled servicing intervals, replacement parts, and equipment downtime.</p>
+            </div>
+            <button class="btn btn-primary"><i class="fa-solid fa-wrench"></i> Log Maintenance Work</button>
+          </div>
+          <div class="card">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Service ID</th>
+                    <th>Equipment Name</th>
+                    <th>Maintenance Type</th>
+                    <th>Technician</th>
+                    <th>Completion Date</th>
+                    <th>Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>SRV-401</strong></td>
+                    <td>John Deere 8R 410 Tractor</td>
+                    <td>500-Hour Oil &amp; Hydraulic Filter Change</td>
+                    <td>Marcus Holloway</td>
+                    <td>Sep 28, 2026</td>
+                    <td>$485.00</td>
+                  </tr>
+                  <tr>
+                    <td><strong>SRV-402</strong></td>
+                    <td>Case IH Axial-Flow 9250</td>
+                    <td>Header Concave Adjustment &amp; Blade Sharpening</td>
+                    <td>Fleet Service Center</td>
+                    <td>Sep 15, 2026</td>
+                    <td>$1,250.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Integrated JavaScript Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Navigation & Tab Switching
+      const navItems = document.querySelectorAll('.sidebar-menu .nav-item');
+      const sections = document.querySelectorAll('.app-section');
+      const breadcrumbPage = document.getElementById('breadcrumbPage');
+      
+      navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const targetId = item.getAttribute('data-target');
+          
+          // Update active nav item
+          navItems.forEach(nav => nav.classList.remove('active'));
+          item.classList.add('active');
+          
+          // Update active section
+          sections.forEach(sec => sec.classList.remove('active'));
+          const activeSection = document.getElementById(targetId);
+          if (activeSection) {
+            activeSection.classList.add('active');
+          }
+          
+          // Update Breadcrumbs
+          if (breadcrumbPage) {
+            breadcrumbPage.textContent = item.querySelector('span').textContent;
+          }
+        });
+      });
+
+      // Render Yield Analytics Chart via Chart.js
+      const ctx = document.getElementById('plantThroughputChart');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7'],
+            datasets: [{
+              label: 'Estimated Crop Growth Index (%)',
+              data: [25, 38, 52, 64, 78, 89, 96],
+              borderColor: '#15803d',
+              backgroundColor: 'rgba(21, 128, 61, 0.08)',
+              fill: true,
+              tension: 0.35,
+              borderWidth: 2,
+              pointRadius: 4,
+              pointBackgroundColor: '#15803d'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false }
+            },
+            scales: {
+              y: {
+                grid: { color: '#f1f5f9' },
+                ticks: { color: '#64748b', font: { size: 11 } }
+              },
+              x: {
+                grid: { display: false },
+                ticks: { color: '#64748b', font: { size: 11 } }
+              }
+            }
+          }
+        });
+      }
+
+      // Sidebar Mobile Toggle
+      const sidebar = document.getElementById('sidebar');
+      const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+      const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+      
+      if (sidebarToggleBtn && sidebar) {
+        sidebarToggleBtn.addEventListener('click', () => {
+          sidebar.style.transform = 'translateX(0)';
+        });
+      }
+      
+      if (sidebarCloseBtn && sidebar) {
+        sidebarCloseBtn.addEventListener('click', () => {
+          sidebar.style.transform = 'translateX(-100%)';
+        });
+      }
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
