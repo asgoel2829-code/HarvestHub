@@ -1,3 +1,4 @@
+const API_BASE_URL = 'https://harvesthub-o8k9.onrender.com';
 document.addEventListener('DOMContentLoaded', () => {
     // Navigation & Tab Switching
     const navItems = document.querySelectorAll('.sidebar-menu .nav-item');
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchProducts() {
       try {
-        const response = await fetch('http://localhost:8080/api/products');
+        const response = await fetch(`${API_BASE_URL}/api/products`);
         if (!response.ok) throw new Error('Failed to fetch products from backend');
         const products = await response.json();
         
@@ -94,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (error) {
         console.error('Error connecting to Spring Boot backend:', error);
         if (cropCatalogGrid) {
-          cropCatalogGrid.innerHTML = '<p style="color:var(--status-danger); padding:20px;">Could not connect to backend server at http://localhost:8080</p>';
+          cropCatalogGrid.innerHTML = `<p style="color:var(--status-danger); padding:20px;">Could not connect to backend server at ${API_BASE_URL}</p>`;
         }
       }
     }
@@ -115,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newProduct = { name, category, price, quantity };
 
         try {
-          const response = await fetch('http://localhost:8080/api/products', {
+          const response = await fetch(`${API_BASE_URL}/api/products`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -131,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         } catch (err) {
           console.error('Network error:', err);
-          alert('Could not connect to backend server at http://localhost:8080');
+          alert(`Could not connect to backend server at ${API_BASE_URL}`);
         }
       });
     }
