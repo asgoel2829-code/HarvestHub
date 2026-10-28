@@ -1,5 +1,5 @@
 # Stage 1: Build the application using Maven Wrapper
-FROM eclipse-temurin:21dk-alpine AS build
+FROM eclipse-temurin:21-jdk-alpine AS build
 WORKDIR /app
 COPY . .
 RUN ./mvnw clean package -DskipTests
